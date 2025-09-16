@@ -6,7 +6,17 @@ import nodeCron from "node-cron";
 import { z } from "zod";
 
 import db from "./firebase.js";
-import { formatterSystemPrompt, jpyPrompt, usdPrompt } from "./prompts.js";
+import {
+  audPrompt,
+  cadPrompt,
+  chfPrompt,
+  eurPrompt,
+  formatterSystemPrompt,
+  gbpPrompt,
+  jpyPrompt,
+  nzdPrompt,
+  usdPrompt,
+} from "./prompts.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +26,12 @@ nodeCron.schedule("0 12,18 * * 1-5", async () => {
   const countries = [
     { code: "usd", prompt: usdPrompt },
     { code: "jpy", prompt: jpyPrompt },
+    { code: "aud", prompt: audPrompt },
+    { code: "gbp", prompt: gbpPrompt },
+    { code: "eur", prompt: eurPrompt },
+    { code: "nzd", prompt: nzdPrompt },
+    { code: "chf", prompt: chfPrompt },
+    { code: "cad", prompt: cadPrompt },
   ];
 
   for (const { code, prompt } of countries) {

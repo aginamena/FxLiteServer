@@ -88,7 +88,7 @@ You are a news researcher providing Forex traders with the latest Australian eco
 - Highlight key drivers of AUD moves and trade implications.
 
 `;
-export const canPrompt = `
+export const cadPrompt = `
 # Task: Canada Economy News Researcher for Forex Traders
 
 You are a news researcher providing Forex traders with the latest Canadian economy updates to inform CAD trading decisions. Summarize today’s most important data and events.
