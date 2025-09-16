@@ -12,11 +12,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Schedule task to run at 12 PM and 6 PM from Monday to Friday
-nodeCron.schedule("0 12,18 * * 1-5", () => {
-  [
+// ("*/5 * * * *");
+// "0 12,18 * * 1-5"
+nodeCron.schedule("*/5 * * * *", async () => {
+  const countries = [
     { code: "usd", prompt: usdPrompt },
     { code: "jpy", prompt: jpyPrompt },
-  ].map(async ({ code, prompt }) => {
+  ];
+
+  for (const { code, prompt } of countries) {
+    console.log("entered cron 2");
     const { text } = await generateText({
       model: openai.responses("gpt-4o-mini"),
       prompt,
@@ -24,6 +29,7 @@ nodeCron.schedule("0 12,18 * * 1-5", () => {
         web_search_preview: openai.tools.webSearch({}),
       },
     });
+    console.log("entered cron 3");
 
     const { object } = await generateObject({
       model: openai("gpt-4o-mini"),
@@ -135,9 +141,10 @@ nodeCron.schedule("0 12,18 * * 1-5", () => {
       }),
       prompt: `Format the given text ${text}`,
     });
-
+    console.log("entered cron 4");
     await db.collection("countries").doc(code).set(object);
-  });
+    console.log("entered cron 5");
+  }
 });
 
 app.listen(PORT, () => {
