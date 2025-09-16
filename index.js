@@ -11,8 +11,8 @@ import { formatterSystemPrompt, jpyPrompt, usdPrompt } from "./prompts.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Schedule task to run at 6 AM, 12 PM, and 6 PM from Monday to Friday
-nodeCron.schedule("0 6,12,18 * * 1-5", () => {
+// Schedule task to run at 12 PM and 6 PM from Monday to Friday
+nodeCron.schedule("0 12,18 * * 1-5", () => {
   [
     { code: "usd", prompt: usdPrompt },
     { code: "jpy", prompt: jpyPrompt },
